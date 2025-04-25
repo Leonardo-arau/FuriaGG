@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:furiagg/telas/Cadastro.dart';
 
-// Tela de login
-class Login extends StatefulWidget {
+class Cadastro extends StatefulWidget {
   @override
-  State<Login> createState() => _LoginState();
+  State<Cadastro> createState() => _CadastroState();
 }
 
-class _LoginState extends State<Login> {
+class _CadastroState extends State<Cadastro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: IconThemeData(
+          color: Colors.white, 
+        ),
+      ),
       body: Container(
         // Fundo com imagem personalizada
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("imagens/FuriaGG_Prototipo.jpg"),
+            image: AssetImage("imagens/FuriaGG_Cadastro.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -25,21 +29,12 @@ class _LoginState extends State<Login> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                // Logo da empresa/app
-                Padding(
-                  padding: EdgeInsets.only(bottom: 100),
-                  child: Image.asset(
-                    "imagens/logo.png",
-                    width: 200,
-                    height: 150,
-                  ),
-                ),
 
-                // Título "Login"
+                // Título "criar conta"
                 Padding(
                   padding: EdgeInsets.only(bottom: 0),
                   child: Text(
-                    "Login",
+                    "Criar nova conta",
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
@@ -49,16 +44,39 @@ class _LoginState extends State<Login> {
                   ),
                 ),
 
-                // Subtítulo "Entre para continuar"
+                // Subtítulo 
                 Padding(
-                  padding: EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 80),
                   child: Text(
-                    "Entre para continuar",
+                    "Já está cadastrado? Faça login aqui",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(179, 0, 0, 0),
                     ),
                     textAlign: TextAlign.center,
+                  ),
+                ),
+
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: SizedBox(
+                      width: 350,
+                      child: TextField(
+                        autofocus: true,
+                        keyboardType: TextInputType.text,
+                        style: TextStyle(fontSize: 20),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                          filled: true,
+                          fillColor: Color(0xFFD9D9D9),
+                          hintText: "Nome",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
 
@@ -69,7 +87,6 @@ class _LoginState extends State<Login> {
                     child: SizedBox(
                       width: 350,
                       child: TextField(
-                        autofocus: true,
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(fontSize: 20),
                         decoration: InputDecoration(
@@ -107,7 +124,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
 
-                // Botão de login
+                // Botão de cadastrar
                 Padding(
                   padding: EdgeInsets.only(top: 16, bottom: 10),
                   child: Center(
@@ -115,7 +132,7 @@ class _LoginState extends State<Login> {
                       width: 320,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Aqui você pode colocar a lógica de login
+                          // Aqui você pode colocar a lógica de cadastrar
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -125,7 +142,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         child: Text(
-                          "Log-in",
+                          "Cadastrar",
                           style: TextStyle(
                             color: const Color.fromARGB(255, 255, 255, 255),
                             fontSize: 20,
@@ -133,25 +150,6 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                  ),
-                ),
-
-                // Link para cadastro
-                Center(
-                  child: GestureDetector(
-                    child: Text(
-                      "Nâo tem conta? Cadastre-se!",
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 3, 3, 3),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Cadastro()
-                        ),
-                      ); // Aqui você pode redirecionar para a tela de cadastro
-                    },
                   ),
                 ),
               ],
