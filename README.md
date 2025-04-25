@@ -1,6 +1,6 @@
 # 🐗 FuriaGG - App Flutter
 
-Aplicativo oficial da torcida e comunidade da **FURIA eSports**, feito com Flutter. Aqui, fãs e jogadores encontram tudo sobre o competitivo de CS:GO em um só lugar!
+Aplicativo oficial da torcida e comunidade da **FURIA eSports**, feito com Flutter. Aqui, fãs e jogadores encontram tudo sobre o competitivo de CS:GO, R6, LOL, RL e PUBG em um só lugar!
 
 ## 📱 Funcionalidades
 
