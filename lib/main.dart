@@ -1,16 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:furiagg/telas/home.dart';
+import 'package:furiagg/telas/login.dart';
 
-void main() async {
+void main() {
 
-    WidgetsFlutterBinding.ensureInitialized(); // garante a inicialização correta
-    await Firebase.initializeApp();
-
-  FirebaseFirestore.instance.collection("usuarios").doc("001").set({
-    "nome": "Luana",
-  });
-
-  runApp(MaterialApp(home: Home(), debugShowCheckedModeBanner: false));
+  runApp(
+    MaterialApp(
+      home: Login(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 0, 0, 0),
+          primary: const Color.fromARGB(255, 0, 0, 0),
+          secondary: const Color.fromARGB(255, 0, 0, 0),
+        ),
+        useMaterial3: true,
+      ),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
 }
