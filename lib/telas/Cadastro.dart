@@ -6,14 +6,50 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
+  //Controladores
+  TextEditingController _controllerNome = TextEditingController();
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
+  String _mensagemErro = "";
+
+  _validarCampos() {
+    //Recupera dados dos campos
+    String nome = _controllerNome.text;
+    String email = _controllerEmail.text;
+    String senha = _controllerSenha.text;
+
+    if (nome.isNotEmpty && nome.length > 3) {
+      if (email.isNotEmpty && email.contains("@")) {
+        if (senha.isNotEmpty) {
+          setState(() {
+            _mensagemErro = "";
+          });
+          _cadastrarUsuario();
+        } else {
+          setState(() {
+            _mensagemErro = "Preencha a Senha!";
+          });
+        }
+      } else {
+        setState(() {
+          _mensagemErro = "Preencha o E-mail utilizando @";
+        });
+      }
+    } else {
+      setState(() {
+        _mensagemErro = "Nome precisa ter mais que 3 caracteres";
+      });
+    }
+  }
+
+  _cadastrarUsuario() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        iconTheme: IconThemeData(
-          color: Colors.white, 
-        ),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
         // Fundo com imagem personalizada
@@ -29,7 +65,6 @@ class _CadastroState extends State<Cadastro> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-
                 // Título "criar conta"
                 Padding(
                   padding: EdgeInsets.only(bottom: 0),
@@ -44,7 +79,7 @@ class _CadastroState extends State<Cadastro> {
                   ),
                 ),
 
-                // Subtítulo 
+                // Subtítulo
                 Padding(
                   padding: EdgeInsets.only(bottom: 80),
                   child: Text(
@@ -63,6 +98,7 @@ class _CadastroState extends State<Cadastro> {
                     child: SizedBox(
                       width: 350,
                       child: TextField(
+                        controller: _controllerNome,
                         autofocus: true,
                         keyboardType: TextInputType.text,
                         style: TextStyle(fontSize: 20),
@@ -87,6 +123,7 @@ class _CadastroState extends State<Cadastro> {
                     child: SizedBox(
                       width: 350,
                       child: TextField(
+                        controller: _controllerEmail,
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(fontSize: 20),
                         decoration: InputDecoration(
@@ -108,7 +145,8 @@ class _CadastroState extends State<Cadastro> {
                   child: SizedBox(
                     width: 350,
                     child: TextField(
-                      autofocus: true,
+                      controller: _controllerSenha,
+                      obscureText: true,
                       keyboardType: TextInputType.text,
                       style: TextStyle(fontSize: 20),
                       decoration: InputDecoration(
@@ -132,7 +170,7 @@ class _CadastroState extends State<Cadastro> {
                       width: 320,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Aqui você pode colocar a lógica de cadastrar
+                          _validarCampos(); // Aqui você pode colocar a lógica de cadastrar
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -150,6 +188,12 @@ class _CadastroState extends State<Cadastro> {
                         ),
                       ),
                     ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    _mensagemErro,
+                    style: TextStyle(color: Colors.red, fontSize: 20),
                   ),
                 ),
               ],

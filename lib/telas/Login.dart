@@ -8,6 +8,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,8 +149,7 @@ class _LoginState extends State<Login> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Cadastro()
-                        ),
+                        MaterialPageRoute(builder: (context) => Cadastro()),
                       ); // Aqui você pode redirecionar para a tela de cadastro
                     },
                   ),
