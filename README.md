@@ -1,16 +1,38 @@
-# furiagg
+# 🐗 FuriaGG - App Flutter
 
-A new Flutter project.
+Aplicativo oficial da torcida e comunidade da **FURIA eSports**, feito com Flutter. Aqui, fãs e jogadores encontram tudo sobre o competitivo de CS:GO em um só lugar!
 
-## Getting Started
+## 📱 Funcionalidades
 
-This project is a starting point for a Flutter application.
+- 🔐 **Login com Steam**
+- 🏠 **Home**: Feed de notícias + Partidas ao vivo
+- 📊 **Estatísticas detalhadas** da sua conta e dos jogadores da FURIA
+- 🎮 **Mercado de Skins**: Navegue e acompanhe valores das skins mais cobiçadas
+- 📅 **Agenda**: Não perca nenhuma partida, treino ou campeonato
+- 📚 **Biblioteca de Estratégias**: Aprenda táticas usadas por jogadores profissionais
+- 💬 **Chats**: Converse com a comunidade e outros torcedores
+- 🙋 **Perfil personalizado** com estatísticas e histórico
 
-A few resources to get you started if this is your first Flutter project:
+## 🧭 Navegação Principal
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+O app conta com navegação via `BottomNavigationBar`, com as seguintes seções:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Home**
+2. **Mercado de Skins**
+3. **Chats**
+4. **Perfil**
+
+## 🚀 Tecnologias Utilizadas
+
+- Flutter & Dart
+- Integração com Steam API
+- Firebase (para autenticação, chat ou storage, se necessário)
+- UI moderna com Material 3
+
+## 🛠 Como rodar localmente
+
+```bash
+git clone git@github.com:Leonardo-arau/FuriaGG.git
+cd FuriaGG
+flutter pub get
+flutter run
