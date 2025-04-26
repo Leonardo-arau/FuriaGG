@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:furiagg/telas/login.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Necessário para operações async
+  await Firebase.initializeApp(); // Inicializa o Firebase
 
   runApp(
     MaterialApp(
