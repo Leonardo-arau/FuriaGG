@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:furiagg/model/Usuario.dart';
 import 'package:furiagg/telas/Cadastro.dart';
+import 'package:furiagg/telas/home.dart';
 
 // Tela de login
 class Login extends StatefulWidget {
@@ -8,6 +11,79 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerSenha = TextEditingController();
+  String _mensagemErro = "";
+
+  _validarCampos() {
+    //Recupera dados dos campos
+    String email = _controllerEmail.text;
+    String senha = _controllerSenha.text;
+
+    if (email.isNotEmpty && email.contains("@")) {
+      if (senha.isNotEmpty) {
+        setState(() {
+          _mensagemErro = "";
+        });
+
+        Usuario usuario = Usuario();
+        usuario.email = email;
+        usuario.senha = senha;
+
+        _logarUsuario(usuario);
+      } else {
+        setState(() {
+          _mensagemErro = "Preencha a Senha!";
+        });
+      }
+    } else {
+      setState(() {
+        _mensagemErro = "Preencha o E-mail utilizando @";
+      });
+    }
+  }
+
+  _logarUsuario(Usuario usuario) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    auth
+        .signInWithEmailAndPassword(
+          email: usuario.email,
+          password: usuario.senha,
+        )
+        .then((firebaseUser) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
+        })
+        .catchError((Error) {
+          setState(() {
+            _mensagemErro =
+                "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!";
+          });
+        });
+  }
+
+  Future _verificarUsuarioLogado() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    User? usuarioLogado = auth.currentUser;
+    if (usuarioLogado != null) {
+       WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+     _verificarUsuarioLogado();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +146,7 @@ class _LoginState extends State<Login> {
                     child: SizedBox(
                       width: 350,
                       child: TextField(
+                        controller: _controllerEmail,
                         autofocus: true,
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(fontSize: 20),
@@ -92,6 +169,8 @@ class _LoginState extends State<Login> {
                   child: SizedBox(
                     width: 350,
                     child: TextField(
+                      controller: _controllerSenha,
+                      obscureText: true,
                       autofocus: true,
                       keyboardType: TextInputType.text,
                       style: TextStyle(fontSize: 20),
@@ -116,7 +195,7 @@ class _LoginState extends State<Login> {
                       width: 320,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Aqui você pode colocar a lógica de login
+                          _validarCampos(); // Aqui você pode colocar a lógica de login
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -152,6 +231,15 @@ class _LoginState extends State<Login> {
                         MaterialPageRoute(builder: (context) => Cadastro()),
                       ); // Aqui você pode redirecionar para a tela de cadastro
                     },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: Center(
+                    child: Text(
+                      _mensagemErro,
+                      style: TextStyle(color: Colors.red, fontSize: 20),
+                    ),
                   ),
                 ),
               ],
