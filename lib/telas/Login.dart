@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
           password: usuario.senha,
         )
         .then((firebaseUser) {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => Home()),
           );
@@ -67,22 +67,23 @@ class _LoginState extends State<Login> {
 
   Future _verificarUsuarioLogado() async {
     FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
 
     User? usuarioLogado = auth.currentUser;
     if (usuarioLogado != null) {
-       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
-    });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      });
     }
   }
 
   @override
   void initState() {
     super.initState();
-     _verificarUsuarioLogado();
+    _verificarUsuarioLogado();
   }
 
   @override

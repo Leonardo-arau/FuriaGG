@@ -9,6 +9,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("FuriaGG")), body: Container());
+    return Scaffold(
+      appBar: AppBar(automaticallyImplyLeading: false, title: Text("FuriaGG")),
+      body: Container(),
+    );
   }
 }

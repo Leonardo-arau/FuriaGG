@@ -1,5 +1,8 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:furiagg/model/Usuario.dart';
 import 'package:furiagg/telas/home.dart';
 
@@ -59,11 +62,29 @@ class _CadastroState extends State<Cadastro> {
           email: usuario.email,
           password: usuario.senha,
         )
-        .then((firebaseUser) {
-          Navigator.push(
+        .then((UserCredential userCredential) {
+          // Obter o usuário a partir do UserCredential
+          User? firebaseUser = userCredential.user;
+
+          // Verificação se o firebaseUser não é null antes de acessar o uid
+          if (firebaseUser != null) {
+            // Salvar dados do usuário no Firestore
+            FirebaseFirestore db = FirebaseFirestore.instance;
+
+            // Acesso seguro usando 'firebaseUser.uid'
+            db
+                .collection("usuarios")
+                .doc(firebaseUser.uid)
+                .set(usuario.toMap());
+
+            // Navegar para a página inicial
+            Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => Home()),
           );
+          } else {
+            print("Usuário não encontrado.");
+          }
         })
         .catchError((Error) {
           setState(() {
